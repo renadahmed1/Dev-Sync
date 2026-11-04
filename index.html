@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Dev-Sync</title>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./DEV-Sync.css">
+    <link rel="stylesheet" href="./register.css"> 
+    <!-- PWA Manifest Link -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3d5afe">
+</head>
+<body>
+    <!-- WELCOME INTERFACE -->
+    <section id="welcome-interface" class="interface">
+        <!-- Header -->
+        <header class="top-page">
+            <div class="name-web">
+                <h1 class="dev-sync">Dev-Sync</h1>
+            </div>
+            <div class="btns">
+                <button id="sign-up">Sign Up</button>
+                <button id="log-in">Log In</button>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="content">
+            <h2 id="description" class="dev-sync">
+                Plan, Track, and Sync Code
+            </h2>
+        </div>
+        <!-- Dark Overlay -->
+        <div class="overlay"></div>
+    </section>
+    <!--  SIGN UP MODAL -->
+    <div id="sign-interface" class="modal hidden">
+        <div class="modal-content animate-pop">
+            <h3>Join Dev-Sync</h3>
+            <p class="modal-description">
+                Create your account and start managing your projects.
+            </p>
+            <div class="email-auth-section">
+                <!-- Username -->
+                <input
+                    type="text"
+                    placeholder="Enter Your Username"
+                    class="info-input"
+                    id="sign-username"
+                >
+                <!-- Email -->
+                <input
+                    type="email"
+                    placeholder="Enter Your Email"
+                    class="info-input"
+                    id="sign-email"
+                >
+                <!-- Password -->
+                <input
+                    type="password"
+                    placeholder="Create a Password"
+                    class="info-input"
+                    id="password-input"
+                >
+                <!-- Error Message -->
+                <p
+                    id="signup-error-msg"
+                    class="error-msg"
+                    style="display: none;"
+                ></p>
+                <!-- Sign Up Button -->
+                <button class="auth-btn email-submit">
+                    Create Account
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content animate-pop">
+            <h3>Welcome Back</h3>
+            <p class="modal-description"> Log in to continue to Dev-Sync. </p>
+            <div class="email-auth-section">
+                <!-- Email -->
+                <input
+                    type="email"
+                    id="login-email"
+                    placeholder="Enter Your Email"
+                    class="info-input"
+                >
+                <!-- Password -->
+                <input
+                    type="password"
+                    id="login-pass"
+                    placeholder="Enter Your Password"
+                    class="info-input"
+                >
+                <!-- Login Error -->
+                <p
+                    id="error-msg"
+                    class="error-msg"
+                    style="display: none;"
+                ></p>
+                <!-- Login Button -->
+                <button class="auth-btn login-submit">
+                    Log In
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="install-banner" class="install-banner hidden">
+        <div class="banner-content">
+            <i class="fas fa-mobile-alt banner-icon"></i>
+            <div class="banner-text">
+                <h3>ثبّت التطبيق على جهازك</h3>
+                <p>للوصول السريع للداشبورد في أي وقت</p>
+            </div>
+        </div>
+        <div class="banner-actions">
+            <button id="install-btn" class="install-btn">تثبيت الآن</button>
+            <button id="close-banner-btn" class="close-banner-btn">لاحقاً</button>
+        </div>
+    </div>
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    
+    <script src="./DEV-Sync.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log('Service Worker Registered!', reg))
+                .catch(err => console.error('Service Worker Error:', err));
+            });
+        }
+    </script>
+</body>
+</html>

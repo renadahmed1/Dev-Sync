@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dev-Sync | Dashboard</title>
+        <link rel="stylesheet" href="dashboard.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+    <body>
+        <div class="app-container">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo-circle" id="nav-avatar">
+                        <span id="nav-avatar-text">DS</span>
+                    </div>
+                    <div class="user-info-nav">
+                        <h2 id="nav-username">Dev-Sync</h2>
+                    </div>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul class="sidebar-menu">
+                        <li data-section="dashboard-section">
+                            <i class="fas fa-th-large"></i>
+                            Dashboard
+                        </li>
+                        <li data-section="teams-section">
+                            <i class="fas fa-users"></i>
+                            Teams
+                        </li>
+                        <li data-section="projects-section" class="active">
+                            <i class="fas fa-folder"></i>
+                            Projects
+                        </li>
+                        <li data-section="friends-section">
+                            <i class="fas fa-user-friends"></i>
+                            Friends
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Sidebar Footer -->
+                <div class="sidebar-footer">
+                    <ul>
+                        <li data-section="settings-section">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </li>
+                        <li id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            <!-- main content -->
+            <main class="main-content">
+                <!-- project section -->
+                <section id="projects-section" class="content-section">
+                    <header class="section-header">
+                        <h2>Kanban Board</h2>
+                        <button class="new-board-btn" id="new-board-btn" type="button">
+                            <i class="fas fa-plus"></i>
+                            New Board
+                        </button>
+                    </header>
+                    <header class="section-header">
+                        <h2> Project Tasks Assignment </h2>
+                    </header>
+                    <div class="projects-grid" id="projects-grid" >
+                        <!-- JavaScript will generate boards here -->
+                    </div>
+                </section>
+                <!-- FRIENDS SECTION -->
+                <section id="friends-section" class="content-section hidden">
+                    <header class="section-header">
+                        <h2>Friends</h2>
+                    </header>
+                    <div class="friends-container">
+                        <div class="friends-search">
+                            <h3>Find Users</h3>
+                            <div class="search-box">
+                                <input
+                                    type="text"
+                                    id="search-user-input"
+                                    placeholder="Search by username..."
+                                >
+                                <button
+                                    id="search-user-btn"
+                                    type="button"
+                                >
+                                    <i class="fas fa-search"></i>
+                                    Search
+                                </button>
+                            </div>
+                            <div id="search-results" class="search-results">
+                            </div>
+                        </div>
+                        <div class="friends-list-container">
+                            <h3>My Friends</h3>
+                            <div id="friends-list" class="friends-list">
+                                <div class="empty-friends">
+                                    <i class="fas fa-user-friends"></i>
+                                    <p>No friends yet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- setting section -->
+                <section id="settings-section" class="content-section hidden">
+                    <header class="section-header">
+                        <h2> Profile Settings </h2>
+                    </header>
+                    <div class="settings-container">
+                        <div class="profile-pic-upload">
+                            <div class="pic-preview" id="pic-preview">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <input
+                                type="file"
+                                id="upload-input"
+                                accept="image/*"
+                                hidden >
+                            <button
+                                class="upload-btn"
+                                type="button"
+                                onclick="document.getElementById('upload-input').click()" >
+                                Change Photo
+                            </button>
+                        </div>
+                        <form id="profile-form" class="settings-form">
+                            <div class="form-group">
+                                <label for="set-username"> Full Name </label>
+                                <input
+                                    type="text"
+                                    id="set-username"
+                                    placeholder="Enter your name"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="set-country"> Country </label>
+                                <input
+                                    type="text"
+                                    id="set-country"
+                                    placeholder="Egypt, UAE, etc."
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="set-phone"> Phone Number </label>
+                                <input
+                                    type="tel"
+                                    id="set-phone"
+                                    placeholder="+20 123 456 789"
+                                >
+                            </div>
+                            <button type="submit" class="save-btn">
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                </section>
+                <!-- dashboard section -->
+                <section id="dashboard-section" class="content-section hidden">
+                    <header class="section-header">
+                        <h2> Statistics Overview </h2>
+                    </header>
+                    <div class="top-options">
+                        <div class="role-selector">
+                            <select id="user-role-select">
+                                <option value="leader">
+                                    Team Leader
+                                </option>
+                                <option value="member">
+                                    Team Member
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Analytics -->
+                    <div class="dashboard-analytics-grid">
+                        <!-- Main Stats -->
+                        <div class="stats-main-row">
+                            <!-- Total Tasks -->
+                            <div class="stat-box total-tasks">
+                                <span> Total Tasks </span>
+                                <h3 id="total-tasks-value"> 0 </h3>
+                            </div>
+                            <!-- Task Progress -->
+                            <div class="progress-detailed-card">
+                                <div class="donut-chart-small" id="task-donut-chart">
+                                    <div class="inner-circle"></div>
+                                </div>
+                                <div class="legend-stats">
+                                    <div class="legend-item">
+                                        <span class="dot green"></span>
+                                        <p>
+                                            Done:
+                                            <strong id="done-percentage">
+                                                0%
+                                            </strong>
+                                        </p>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="dot yellow"></span>
+                                        <p>
+                                            Pending:
+                                            <strong id="pending-percentage">
+                                                0%
+                                            </strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Projects -->
+                            <div class="stat-box projects-count">
+                                <span> Total Projects </span>
+                                <h3 id="total-projects-value"> 0 </h3>
+                            </div>
+                        </div>
+                        <!-- Team Performance -->
+                        <div class="team-performance-card">
+                            <h4>Team Performance (Completion %)</h4>
+                            <div class="bar-chart-container">
+                                <div class="bar-chart-wrapper" id="performance-chart" style="display: flex; justify-content: space-around; align-items: flex-end; height: 100%; width: 100%; min-height: 200px;">
+                                    <!-- JavaScript will generate bars -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- team section -->
+                <section id="teams-section" class="content-section hidden">
+                    <header class="section-header">
+                        <h2> Teams Management </h2>
+                    </header>
+                    <!-- Create Team -->
+                    <div class="team-actions">
+                        <button
+                            class="create-team-btn"
+                            id="create-team-btn"
+                            type="button"
+                        >
+                            <i class="fas fa-plus"></i>
+                            Create New Team
+                        </button>
+                    </div>
+                    <!-- Dynamic Teams -->
+                    <div id="teams-container" class="teams-list" >
+                        <!-- JavaScript will generate teams here -->
+                    </div>
+                </section>
+            </main>
+        </div>
+        <!-- create team model -->
+        <div id="create-team-modal" class="board-modal hidden">
+            <div class="board-modal-content">
+                <div class="modal-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3> Create New Team </h3>
+                <p class="modal-description"> Create a new team and start adding members. </p>
+                <input
+                    type="text"
+                    id="team-name-input"
+                    placeholder="Enter team name"
+                    maxlength="50"
+                >
+                <div class="board-modal-buttons">
+                    <button
+                        type="button"
+                        id="cancel-team-btn"
+                        class="modal-cancel-btn"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        id="confirm-create-team-btn"
+                        class="modal-confirm-btn"
+                    >
+                        <i class="fas fa-plus"></i>
+                        Create Team
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- ADD MEMBER MODAL -->
+        <div id="add-member-modal" class="board-modal hidden">
+            <div class="board-modal-content">
+                <div class="modal-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3> Add Team Member </h3>
+                <p class="modal-description"> Add a new member to your team. </p>
+                <div class="modal-form-group">
+                    <label>Select Friend</label>
+                    <select id="friend-select">
+                        <option value="">Choose Friend</option>
+                    </select>
+                </div>
+                <div class="modal-form-group">
+                    <label>Role</label>
+                    <input
+                        type="text"
+                        id="member-role-input"
+                        placeholder="Backend Developer"
+                    >
+                </div>
+                <div class="board-modal-buttons">
+                    <button
+                        type="button"
+                        id="cancel-member-btn"
+                        class="modal-cancel-btn"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        id="confirm-add-member-btn"
+                        class="modal-confirm-btn"
+                    >
+                        <i class="fas fa-user-plus"></i>
+                        Add Member
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- NEW BOARD MODAL -->
+        <div id="new-board-modal" class="board-modal hidden">
+            <div class="board-modal-content">
+                <div class="modal-icon">
+                    <i class="fas fa-folder-plus"></i>
+                </div>
+                <h3> Create New Board </h3>
+                <p class="modal-description"> Create a new project board for your tasks. </p>
+                <div class="modal-form-group">
+                    <label for="board-name-input">
+                        Board Name
+                    </label>
+                    <input
+                        type="text"
+                        id="board-name-input"
+                        placeholder="Enter board name"
+                        maxlength="50"
+                    >
+                </div>
+                <div class="board-modal-buttons">
+                    <button
+                        type="button"
+                        id="cancel-board-btn"
+                        class="modal-cancel-btn"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        id="create-board-btn"
+                        class="modal-confirm-btn"
+                    >
+                        <i class="fas fa-plus"></i>
+                        Create Board
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- FIREBASE -->
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+        <script src="dashboard.js"></script>
+    </body>
+</html>
